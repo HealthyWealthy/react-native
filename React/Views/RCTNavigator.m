@@ -341,16 +341,19 @@ RCT_NOT_IMPLEMENTED(- (instancetype)initWithCoder:(NSCoder *)aDecoder)
   __weak RCTNavigator *weakSelf = self;
   [tc.containerView addSubview: _dummyView];
   [tc animateAlongsideTransition: ^(id<UIViewControllerTransitionCoordinatorContext> context) {
-    RCTWrapperViewController *fromController =
-      (RCTWrapperViewController *)[context viewControllerForKey:UITransitionContextFromViewControllerKey];
-    RCTWrapperViewController *toController =
-      (RCTWrapperViewController *)[context viewControllerForKey:UITransitionContextToViewControllerKey];
-    NSUInteger indexOfFrom = [_currentViews indexOfObject:fromController.navItem];
-    NSUInteger indexOfTo = [_currentViews indexOfObject:toController.navItem];
-    CGFloat destination = indexOfFrom < indexOfTo ? 1.0 : -1.0;
-    _dummyView.frame = (CGRect){{destination, 0}, CGSizeZero};
-    _currentlyTransitioningFrom = indexOfFrom;
-    _currentlyTransitioningTo = indexOfTo;
+    if ([[context viewControllerForKey:UITransitionContextFromViewControllerKey] isKindOfClass:[RCTWrapperViewController class]] &&
+        [[context viewControllerForKey:UITransitionContextToViewControllerKey] isKindOfClass:[RCTWrapperViewController class]]) {
+        RCTWrapperViewController *fromController =
+          (RCTWrapperViewController *)[context viewControllerForKey:UITransitionContextFromViewControllerKey];
+        RCTWrapperViewController *toController =
+          (RCTWrapperViewController *)[context viewControllerForKey:UITransitionContextToViewControllerKey];
+        NSUInteger indexOfFrom = [_currentViews indexOfObject:fromController.navItem];
+        NSUInteger indexOfTo = [_currentViews indexOfObject:toController.navItem];
+        CGFloat destination = indexOfFrom < indexOfTo ? 1.0 : -1.0;
+        _dummyView.frame = (CGRect){{destination, 0}, CGSizeZero};
+        _currentlyTransitioningFrom = indexOfFrom;
+        _currentlyTransitioningTo = indexOfTo;
+    }
     _paused = NO;
   }
   completion:^(__unused id<UIViewControllerTransitionCoordinatorContext> context) {
