@@ -357,6 +357,8 @@ RCT_NOT_IMPLEMENTED(- (instancetype)initWithCoder:(NSCoder *)aDecoder)
   __weak RCTNavigator *weakSelf = self;
   [tc.containerView addSubview: _dummyView];
   [tc animateAlongsideTransition: ^(id<UIViewControllerTransitionCoordinatorContext> context) {
+    if ([[context viewControllerForKey:UITransitionContextFromViewControllerKey] isKindOfClass:[RCTWrapperViewController class]] &&
+    [[context viewControllerForKey:UITransitionContextToViewControllerKey] isKindOfClass:[RCTWrapperViewController class]]) {
     RCTWrapperViewController *fromController =
       (RCTWrapperViewController *)[context viewControllerForKey:UITransitionContextFromViewControllerKey];
     RCTWrapperViewController *toController =
@@ -367,6 +369,7 @@ RCT_NOT_IMPLEMENTED(- (instancetype)initWithCoder:(NSCoder *)aDecoder)
     _dummyView.frame = (CGRect){{destination, 0}, CGSizeZero};
     _currentlyTransitioningFrom = indexOfFrom;
     _currentlyTransitioningTo = indexOfTo;
+    }
     self.paused = NO;
   }
   completion:^(__unused id<UIViewControllerTransitionCoordinatorContext> context) {

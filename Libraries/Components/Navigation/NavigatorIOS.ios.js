@@ -149,6 +149,7 @@ type Event = Object;
  *  - `resetTo(route)` - Replaces the top item and popToTop
  *  - `popToRoute(route)` - Go back to the item for a particular route object
  *  - `popToTop()` - Go back to the top item
+ *  - `getCurrentRoutes()` - Returns the current list of routes
  *
  * Navigator functions are also available on the NavigatorIOS component:
  *
@@ -298,6 +299,7 @@ var NavigatorIOS = React.createClass({
       resetTo: this.resetTo,
       popToRoute: this.popToRoute,
       popToTop: this.popToTop,
+      getCurrentRoutes: this.getCurrentRoutes,
       navigationContext: this.navigationContext,
     };
     this._emitWillFocus(this.state.routeStack[this.state.observedTopOfStack]);
@@ -580,6 +582,10 @@ var NavigatorIOS = React.createClass({
     }
     this.replaceAtIndex(route, 0);
     this.popToRoute(route);
+  },
+
+  getCurrentRoutes: function(): Array<Route> {
+    return this.state.routeStack;
   },
 
   handleNavigationComplete: function(e: Event) {
