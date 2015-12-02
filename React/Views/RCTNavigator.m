@@ -358,7 +358,7 @@ RCT_NOT_IMPLEMENTED(- (instancetype)initWithCoder:(NSCoder *)aDecoder)
   [tc.containerView addSubview: _dummyView];
   [tc animateAlongsideTransition: ^(id<UIViewControllerTransitionCoordinatorContext> context) {
     if ([[context viewControllerForKey:UITransitionContextFromViewControllerKey] isKindOfClass:[RCTWrapperViewController class]] &&
-    [[context viewControllerForKey:UITransitionContextToViewControllerKey] isKindOfClass:[RCTWrapperViewController class]]) {
+      [[context viewControllerForKey:UITransitionContextToViewControllerKey] isKindOfClass:[RCTWrapperViewController class]]) {
     RCTWrapperViewController *fromController =
       (RCTWrapperViewController *)[context viewControllerForKey:UITransitionContextFromViewControllerKey];
     RCTWrapperViewController *toController =
