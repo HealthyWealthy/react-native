@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
   s.homepage            = "http://facebook.github.io/react-native/"
   s.license             = "BSD"
   s.author              = "Facebook"
-  s.source              = { :git => "https://github.com/HealthyWealthy/react-native.git", :tag => "cs-#{s.version}" }
+  s.source              = { :git => "https://github.com/HealthyWealthy/react-native.git", :tag => "vcs-#{s.version}" }
   s.default_subspec     = 'Core'
   s.requires_arc        = true
   s.platform            = :ios, "7.0"
