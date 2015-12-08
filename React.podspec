@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
   s.homepage            = "http://facebook.github.io/react-native/"
   s.license             = "BSD"
   s.author              = "Facebook"
-  s.source              = { :git => "https://github.com/HealthyWealthy/react-native.git", :tag => "v#{s.version}" }
+  s.source              = { :git => "https://github.com/HealthyWealthy/react-native.git", :tag => "cs-#{s.version}" }
   s.default_subspec     = 'Core'
   s.requires_arc        = true
   s.platform            = :ios, "7.0"
@@ -50,6 +50,7 @@ Pod::Spec.new do |s|
 
   s.subspec 'RCTCameraRoll' do |ss|
     ss.dependency         'React/Core'
+    ss.dependency         'React/RCTImage'
     ss.source_files     = "Libraries/CameraRoll/*.{h,m}"
     ss.preserve_paths   = "Libraries/CameraRoll/*.js"
   end
@@ -110,6 +111,7 @@ Pod::Spec.new do |s|
   end
 
   s.subspec 'RCTTest' do |ss|
+    ss.dependency         'React/Core'
     ss.source_files     = "Libraries/RCTTest/**/*.{h,m}"
     ss.preserve_paths   = "Libraries/RCTTest/**/*.js"
     ss.frameworks       = "XCTest"
